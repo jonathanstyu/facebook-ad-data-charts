@@ -1,0 +1,61 @@
+<div id="funnelAttributes">
+  <h4>Funnel Attributes</h4>
+  
+  <label for="funnel_name">Name</label>
+  <br/>
+  <input type="text" name="funnel_name" value="<%= @funnel.name %>" id="funnel_name">
+  <br/>
+  <label for="goal">Goal</label>
+  <br/>
+  <input type="text" name="goal" value="<%= @funnel.goal %>" id="goal">
+  <br/>
+</div>
+
+<div id="funnelSteps">
+  <h4>Funnel Steps</h4>
+  <div class='btn-group'>
+  <button class='btn btn-default' id="addRow">Add Row</button>
+  <button class='btn btn-default' id='submit'>Submit Funnel</button>    
+  </div>
+  
+  <table class='table'>
+    <tr>
+      <th>Step</th>
+      <th>Funnel Location</th>
+      <th>Actions</th>
+    </tr>
+    <tr class="landingPage">
+      <td><input type="text" name="url" placeholder="Url of Site" class="stepUrl" value="<%= @funnel.landing_page ? @funnel.landing_page.url : "" %>"></td>
+      <td>Landing Page</td>
+    </tr>
+    <% @funnel.steps.drop(1).each do |step| %>
+      <%= render 'funnels/table_row', step: step %>
+    <%end%>
+  </table>
+</div>
+
+
+<script type="text/javascript">
+  $('#submit').on("click", function(click) {
+    var funnelName = $("#funnel_name").val(); 
+    $(".stepUrl").each(function (index, object) {
+      console.log($(object).val()); 
+    }); 
+
+  }); 
+  
+  $(document).on('click', '.delete', function (click) {
+    $(click.target).parents('tr').remove();
+  });
+  
+  
+  $('#addRow').on("click", function(click) {
+    var rowHtml = $('#rowTemplate').html();
+    var rowTemplate = _.template(rowHtml);
+    $('#funnelTable').append(rowTemplate);
+  }); 
+</script>
+
+<script type="text" id="rowTemplate">
+  <%= File.read('./app/views/funnels/_table_row.html').html_safe %>
+</script>

@@ -1,0 +1,15 @@
+ga:userType
+ga:sessionCount
+ga:referralPath
+ga:fullReferrer
+ga:keyword
+ga:adContent
+ga:medium
+ga:source
+ga:campaign
+ga:sourceMedium
+ga:operatingSystem
+ga:browserVersion
+ga:browser
+ga:operatingSystemVersion
+ga:deviceCategory

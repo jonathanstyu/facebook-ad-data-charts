@@ -1,0 +1,21 @@
+<nav class='navbar navbar-default navbar-fixed-top' role='navigation'>
+  <div class='container-fluid'>
+    <%= link_to("Niner", root_path, class: 'navbar-brand') %>
+    <!-- <ul class='nav navbar-nav'>
+      <% if @current_user %> -->
+        <!-- <li><%= link_to "Authorize with Google", gauthorize_path, method: :get %></li> -->
+      <!-- <%end%>       -->
+    <!-- </ul> -->
+    <ul class='nav navbar-nav navbar-right'>
+      <% unless @current_user %>
+        <li><%= link_to("Sign In", new_session_path) %></li>
+        <li><%= link_to('Sign Up', new_user_path) %></li>
+      <%else%>
+        <li><%= link_to "Authorize with FB", fbauthorize_path, method: :get %></li>
+        <li><%= link_to("Accounts/Info", user_path(@current_user)) %></li>
+        <li><%= link_to "Sign out", session_path, html_options = {method: :delete}%></li>
+      <%end%>
+    </ul>
+  </div>
+</nav>
+

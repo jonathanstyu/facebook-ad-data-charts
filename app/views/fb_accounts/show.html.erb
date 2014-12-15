@@ -1,0 +1,34 @@
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-md-2'>
+      <p>Facebook Ad Account: <%= @fb_account.ad_account_id %></p>
+      <hr>
+      <form class='form-inline' id='fbdatasubmit' url="<%= user_fb_account_query_path(@current_user, @fb_account)%>">    
+        <ul class='nav nav-pills nav-stacked'>
+          <p><b>Time Span</b></p>
+          <% ['today', 'yesterday', 'this_week', 'last_week', 'last_7_days', 'last_14_days'].each do |date_preset| %>
+            <li role='presentation'>
+              <label class="radio-inline">
+                <input type="radio" name="date_preset" id="inlineRadio1" value="<%=date_preset%>"><%=date_preset%>
+              </label>
+            </li>
+          <%end%>
+        </ul>
+        <hr>
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        <hr>
+        <a href='https://docs.google.com/forms/d/10r3mMMEbpnVU4OyTSENTMI6EGCobibRpn1uSx94_PM4/viewform'>Tell Me How to Improve</a>
+      </form>
+    </div>
+    
+    <div class='col-md-10'>
+      <div class='container-fluid' id='chartingareas'>
+        <% ["cpm", "spend", "cpc", "clicks", "ctr", 'impressions', 'frequency'].each do |data_point| %>
+          <%= render 'chart_row', data_point: data_point %>
+        <%end%>
+      </div>      
+    </div>
+    
+  </div>  
+    
+</div>

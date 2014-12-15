@@ -1,0 +1,47 @@
+<div class='container-fluid'>
+  <h4>Funnel-Metrics: <%= @funnel.name %></h4>
+  <p>Goal of the Funnel: <%= @funnel.goal%></p>
+  <p>Number of Funnel Steps: <%= @funnel.steps.count%></p>
+  <p>Site Name: <%= @funnel.landing_page.host %></p>
+  <p>Effective Time: <input type="date" value="<%= @query.parameters['start-date'] || 0 %>" id="startDate"> to <input type="date" value="<%= @query.parameters['end-date'] || 0 %>" id="endDate"></p>
+  
+  <button class='btn btn-small' id='loadButton'>Load Data</button>
+
+  <hr/>
+  <table class='table table-striped'>
+    <tr>
+      <th>Step</th>
+      <th>Path</th>
+      <th>Page Title</th>
+      <th>Page Views</th>
+    </tr>
+    <% @funnel.steps.each_with_index do |step, count| %>
+      <tr>
+        <td><%= count == 0 ? "Landing Page" : "Step " + count.to_s %></td>
+        <td><%= step.path %></td>
+        <td><%= step.title %></td>
+        <td><%= @query.metric(step.path)%></td>
+      </tr>
+    <%end%>		
+  </table>
+</div>
+
+<script type="text/javascript">
+  $('#loadButton').on('click', function () {
+    var url = $(location).attr('href')
+    
+    var startDate = $('#startDate').val()
+    var endDate = $('#endDate').val()
+    
+    var path = url + 
+      "&start_date=" + startDate + 
+      "&end_date=" + endDate + 
+      "&dimensions=" + 'ga:pagepath' + 
+      "&metrics=" + 'ga:pageviews' + 
+      "&segment=" + 'sessions::condition::ga:landingpagepath=@/quiz/best-bras-ever' + 
+      "&sort=" + 'ga:pageviews'
+    
+    window.location = path
+
+  }); 
+</script>

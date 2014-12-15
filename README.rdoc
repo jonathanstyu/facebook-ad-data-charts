@@ -1,0 +1,19 @@
+### Paul's Notes
+
+* For API result data, turn them into pure Ruby objects. Parse them into whatever the steps are. Make it an actual object
+
+* Pass it to the controller (worry about persisting later)
+
+* Once they are objects, then make all calculations in Ruby and not worry about front end 
+
+* Might as well do it in Ruby rather than JavaScript
+
+### Once you have data
+
+* Take response from Google and put it in a file called Foo.rb
+* Save it in an object
+* Write the code that gets it done without abstractions
+* Then put it into abstractions since it is doing something 
+* Break something off and then wrapping it with tests 
+* Get the numbers from a Ruby Script and then you can slap them into an interface
+* Do it all in Ruby

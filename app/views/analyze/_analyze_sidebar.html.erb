@@ -1,0 +1,21 @@
+<div id="dimensions">
+  <b>Dimensions</b>
+  <ul class='list-group'>
+    <% @dimensions = File.read('./config/dimensions.rb').split("\n") %>
+    <% @dimensions.each do |dimension| %>
+      <li class='dimension list-group-item'><%= dimension %></li>
+    <%end%>
+  </ul>
+</div>
+
+<hr />
+
+<div id="metrics">
+  <b>Metrics</b>
+  <ul class='list-group'>
+    <% @metrics = File.read('./config/metrics.rb').split("\n") %>
+    <% @metrics.each do |metric| %>
+      <li class='metric list-group-item'><%= metric %></li>
+    <%end%>          
+  </ul>
+</div>

@@ -1,0 +1,47 @@
+<div class='row'>
+  <div class="col-md-6">
+    <div id='dimensions-header'>
+      Dimensions
+      <% if @query.parameters['dimensions']%>
+        <% @query.parameters['dimensions'].split(',').each do |dimension| %>
+          <button class='btn btn-xs btn-success header'><%= dimension %></button>
+        <%end%>
+      <%end%>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div id='metrics-header'>
+      Metrics
+      <% if @query.parameters['metrics'] %>
+        <% @query.parameters['metrics'].split(',').each do |metric| %>
+          <button class='btn btn-xs btn-warning header'><%= metric %></button>
+        <%end%>
+      <%end%>
+    </div>
+  </div>
+</div>
+
+<div class='row panel panel-default'>
+  <table id='results-table'>
+    <tr>
+      <% if @query.parameters['dimensions']%>
+        <% @query.parameters['dimensions'].split(',').each do |dimension| %>
+          <th><%= dimension %></th>
+        <%end%>
+      <%end%>
+      <% if @query.parameters['metrics']%>
+        <% @query.parameters['metrics'].split(',').each do |metric| %>
+          <th><%= metric %></th>
+        <%end%>
+      <%end%>
+    </tr>
+		<% @query.rows.each do |row| %>
+			<tr>
+				<% row.each do |point| %>
+		    	<td><%= point %></td>
+				<%end%>
+			<tr>
+		<%end%>
+  </table>
+</div>

@@ -1,0 +1,26 @@
+<div class='container-fluid'>  
+  <div class='row'>
+    <h4><%= @current_user.email%>'s attached Facebook Accounts</h4>
+    <table class='table table-striped'>
+      <tr>
+        <th>Account ID</th>
+        <th>Actions</th>
+      </tr>
+      <% @current_user.fb_accounts.each do |account| %>
+        <tr>
+          <td>Account Id: <%= account.ad_account_id %></td>
+          <td>
+            <%= link_to "View", user_fb_account_path(@current_user, account), class: 'btn btn-primary btn-large' %>
+          </td>
+        </tr>
+      <%end%>
+    </table>
+  </div>
+  
+  <div class='row'>
+    <%= form_for(:fb_account, method: :post, url: user_fb_accounts_path(@current_user.id), html: {class: "form", id: "fb-account-form"}) do |f|  %>
+      Ad Account ID: <%= f.text_field :ad_account_id %>
+      <%= f.submit %>
+    <%end%>
+  </div>
+</div>

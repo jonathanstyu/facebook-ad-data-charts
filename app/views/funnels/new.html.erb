@@ -1,0 +1,92 @@
+<h4>Create New Funnel</h4>
+
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-md-7'>
+      <p>Google Events are classified as Category, Action, or Label. Funnels can only be built on one. Start building your funnel by downloading a list of your 50 most common Events and adding them to your funnel</p>
+      
+      <form role='form' class='form-line' id='eventTypeForm'>        
+        <!--Radio form to allow selection of only 1 type -->
+        <div class='radio'>
+          <label class="radio-inline">
+            <input type="radio" name="dimensions" id="Category" value="eventCategory">Category
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="dimensions" id="Action" value="eventAction">Action
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="dimensions" id="Label" value="eventLabel">Label
+          </label>
+        </div>
+        <button class='btn btn-primary' type='submit' data-loading-text="Loading...">Download Events</button>
+      </form>
+      
+      <!-- Hidden table to populate results -->
+      <table class='table hidden' id='eventResultTable'>
+        <tr>
+          <th>Event Step</th>
+          <th>User Count</th>
+        </tr>
+      </table>
+    </div>
+  
+    <div class='col-md-5'>
+      <form role='form' class='form'>
+        <div class='form-group'>
+          <label for="funnel_name">Funnel Name</label>
+          <input type="text" name="funnel_name" value="<%= @funnel.name %>" id="funnel_name">        
+        </div>
+        <div class='form-group'>
+          <label for="funnel_name">Account ID</label>
+          <input type="text" name="funnel_name" value="<%= @account_id %>" id="funnel_name">        
+        </div>
+        <div class='form-group'>
+          <label for="goal">Goal</label>
+          <input type="text" name="goal" value="<%= @funnel.goal %>" id="goal">
+        </div>      
+        <button class='btn btn-default' type='submit'>Submit Funnel</button>
+      </form>
+      
+      <hr>
+      
+      <table class='table'>
+        <tr>
+          <th>Funnel Step</th>
+        </tr>
+      </table>    
+    </div>
+  </div>
+  
+</div>
+
+
+<script type="text/javascript">
+
+  $('#eventTypeForm').submit(function (event) {
+    event.preventDefault(); 
+    
+    if ($('#eventTypeForm').serialize() === "") {
+      $('#flash-alerts').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&times;</button>Try Again</div>")
+    } else {
+      $.ajax({
+        type: "POST",
+        url: "/funnels/events",
+        data: $('#eventTypeForm').serialize() + "&account_id=<%= @account_id %>",
+        success: function (data) {
+          handleData(data)
+        } // End of Success
+      }) // end of AJAX 
+    } // End of Verification IF-else
+  }); // End of Submit Function
+  
+  var handleData = function (data) {
+    $('#eventResultTable > tbody > tr').remove()
+    for (var i = data.length - 1; i >= 0; i--) {
+      var row = data[i]
+      var htmlString = '<tr><td>' + row[0] + '</td><td>'+ row[1] + '</td></tr>'
+      $('#eventResultTable tbody').append(htmlString)
+    }
+    $('#eventResultTable').removeClass('hidden')
+  }
+  
+</script>

@@ -1,0 +1,27 @@
+<div class='container-fluid'>
+  <h4>Funnels</h4>
+
+  <%= link_to "Create New Funnel", new_funnel_path(account_id: @account_id) %>
+  <br />
+  <br />
+
+  <table class='table table-striped'>
+    <tr>
+      <th>Funnel Name</th>
+      <th>Funnel Goal</th>
+      <th>Settings</th>
+      <th>Actions</th>
+    </tr>
+    <% @funnels.each do |funnel| %>
+      <tr id="<%= "funnel#{funnel.id}" %>">
+        <td><%= funnel.name %></td>
+        <td><%= funnel.goal %></td>
+        <td><%= link_to "Edit", edit_funnel_path(funnel) %></td>
+        <td>
+          <%= link_to "View", funnel_path(funnel, account_id: @account_id) %>
+          <a href='#' class='funnelView' id='funnel2'>Dummy Link</a>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

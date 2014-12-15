@@ -1,0 +1,11 @@
+<div class='row' id='analyze-header'>
+  <div class='navbar navbar-default'>
+    <button id='run' class='btn btn-primary navbar-btn' type='button'>Run</button>
+    <button id='share' class='btn btn-default navbar-btn' type='button'>Share</button>
+		<button id='download' class='btn btn-default navbar-btn' type='button'>Download</button>
+    <form class='navbar-form pull-right'>
+      <input type=date id='startDate' value="<%= @query.parameters['start-date'] || "" %>">
+      <input type=date id='endDate' value="<%= @query.parameters['end-date'] || "" %>">
+    </form>
+  </div>
+</div>
